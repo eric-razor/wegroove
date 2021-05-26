@@ -4,15 +4,17 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
 } from "react-router-dom";
+
+import {onPageLoad} from './components/Login'
 
 const { REACT_APP_CLIENT_ID, REACT_APP_REDIRECT_URI, REACT_APP_SCOPES} = process.env
 
 export default function App() {
   return (
     <Router>
-      <div>
+      <div onLoad={onPageLoad()}>
         <nav>
           <ul>
             <li>
@@ -27,7 +29,7 @@ export default function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/login">
+          <Route path="/">
             <Login />
           </Route>
         </Switch>
