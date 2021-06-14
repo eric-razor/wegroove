@@ -1,6 +1,6 @@
 import React from 'react';
-export {onPageLoad,}
 
+export {onPageLoad,}
 
 function redirect() {
     let url = 'https://accounts.spotify.com/authorize' +
@@ -29,6 +29,7 @@ function handleRedirect(){
 
 function fetchAccessToken(code){
     let code_params = { 'code': code, 'redirect_uri': `${process.env.REACT_APP_REDIRECT_URI}` }
+
     fetch("/api/v1/token", {
         method:'POST',
         headers: {
@@ -36,15 +37,29 @@ function fetchAccessToken(code){
         },
         body: JSON.stringify(code_params)
     })
-        .then(resp => resp.json())
-        .then(data => {
-            console.log('Success: ', data)
-        })
-        .catch((error) => {
-            console.error('Error: ', error)
-        })
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+        handleAuthTokens(data)  
+    })
+    .catch((error) => {
+        console.error('Error: ', error)
+    })
 }
-// named export {}
+
+function handleAuthTokens(code){
+    if(code.access_token !== undefined || code.refresh_token !== undefined){
+        let access_token = code.access_token
+        let refresh_token = code.refresh_token
+        localStorage.setItem("access_token", access_token)
+        localStorage.setItem("refresh_token", refresh_token)
+    } else {
+        console.log(code)
+    }
+}
+
+
+// exports
 function onPageLoad() {
     if (window.location.search.length > 0) {
         handleRedirect()
@@ -52,13 +67,7 @@ function onPageLoad() {
 }
 
 export default function Login(){
-  
-    function requestTokens() {
-        
-
-    }
-
-
+    
     return (
         <div>
             <button onClick={redirect}>login</button>
