@@ -1,7 +1,8 @@
 import React from 'react'
 import Login from './components/Login'
+import Profile from './components/Profile'
+import NavBar from './components/NavBar'
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link,
@@ -13,27 +14,18 @@ const { REACT_APP_CLIENT_ID, REACT_APP_REDIRECT_URI, REACT_APP_SCOPES} = process
 
 export default function App() {
   return (
-    <Router>
-      <div onLoad={onPageLoad()}>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
-        </nav>
+    <div className="App">
+      <NavBar/>
+      
+      <Switch>
+        <Route exact path="/">
+          <Login />
+        </Route>
+        <Route path="/profile">
+          <Profile/>
+        </Route>
+      </Switch>
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/">
-            <Login />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    </div>
   );
 }
