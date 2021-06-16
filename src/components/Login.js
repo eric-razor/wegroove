@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux'
+import {assignUser} from '../actions/user'
 
 export {onPageLoad,}
 
@@ -40,7 +42,7 @@ function fetchAccessToken(code){
     .then(resp => resp.json())
     .then(data => {
         console.log(data)
-        handleAuthTokens(data)  
+        handleAuthTokens(data) 
     })
     .catch((error) => {
         console.error('Error: ', error)
@@ -53,6 +55,8 @@ function handleAuthTokens(code){
         let refresh_token = code.refresh_token
         localStorage.setItem("access_token", access_token)
         localStorage.setItem("refresh_token", refresh_token)
+        
+        assignUser();
     } else {
         console.log(code)
     }
@@ -66,7 +70,8 @@ function onPageLoad() {
     }
 }
 
-export default function Login(){
+function Login(){
+    
     
     return (
         <div>
@@ -76,4 +81,4 @@ export default function Login(){
 }
 
 
-
+export default connect(null, { assignUser })(Login)
