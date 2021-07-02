@@ -1,10 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {assignUser} from '../actions/user'
 
-export {onPageLoad,}
+export {onPageLoad, }
 
 function redirect() {
+    // accept scopes
     let url = 'https://accounts.spotify.com/authorize' +
         '?response_type=code' +
         '&client_id=' + `${process.env.REACT_APP_CLIENT_ID}` +
@@ -27,6 +26,8 @@ function getCodeParam() {
 function handleRedirect(){
     let code = getCodeParam() 
     fetchAccessToken(code)
+    // remove code param from URL
+    window.history.pushState("", "", process.env.REACT_APP_REDIRECT_URI)
 }
 
 function fetchAccessToken(code){
@@ -41,8 +42,7 @@ function fetchAccessToken(code){
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
-        handleAuthTokens(data) 
+        handleAuthTokens(data)
     })
     .catch((error) => {
         console.error('Error: ', error)
@@ -55,10 +55,8 @@ function handleAuthTokens(code){
         let refresh_token = code.refresh_token
         localStorage.setItem("access_token", access_token)
         localStorage.setItem("refresh_token", refresh_token)
-        
-        assignUser();
     } else {
-        console.log(code)
+        
     }
 }
 
@@ -71,8 +69,6 @@ function onPageLoad() {
 }
 
 function Login(){
-    
-    
     return (
         <div>
             <button onClick={redirect}>login</button>
@@ -80,5 +76,4 @@ function Login(){
     )
 }
 
-
-export default connect(null, { assignUser })(Login)
+export default Login;
