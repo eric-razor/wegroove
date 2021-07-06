@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { getUserProfile } from './Profile';
 export {onPageLoad, }
 
 function redirect() {
@@ -56,7 +56,7 @@ function handleAuthTokens(code){
         localStorage.setItem("access_token", access_token)
         localStorage.setItem("refresh_token", refresh_token)
     } else {
-        
+        // 
     }
 }
 
