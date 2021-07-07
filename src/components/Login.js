@@ -1,6 +1,6 @@
 import React from 'react';
 import { getUserProfile } from './Profile';
-export {onPageLoad, }
+export {onPageLoad, redirect}
 
 function redirect() {
     // accept scopes
@@ -71,7 +71,7 @@ function onPageLoad() {
 function Login(){
     return (
         <div>
-            <button onClick={redirect}>login</button>
+            <button>login</button>
         </div>
     )
 }
