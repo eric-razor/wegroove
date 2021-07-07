@@ -2,18 +2,23 @@ import React from 'react'
 import {
     NavLink,
 } from "react-router-dom";
-import { onPageLoad } from './Login';
+import { onPageLoad, redirect } from './Login';
+
+import '../styles/NavBar.css'
 
 const NavBar = () => {
     return (
-        <div className="NavBar">
-            <nav>
-                <ul className="Nav-Route-List">
+        <div className="navbar">
+            <nav className="nav-links">
+                <ul className="nav-route-list">
                     <li>
-                        <NavLink to="/profile"> Profile</NavLink>
+                        <NavLink to="/">Home</NavLink>
                     </li>
-                    <li onLoad={onPageLoad()}>
-                        <NavLink to="/"> Login </NavLink>
+                    <li>
+                        <NavLink to="/profile">Profile</NavLink>
+                    </li>
+                    <li id="login-btn" onLoad={onPageLoad()} onClick={redirect}>
+                        <NavLink to="/">Login</NavLink>
                     </li>
                 </ul>
             </nav>
