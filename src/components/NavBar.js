@@ -4,7 +4,9 @@ import {
 } from "react-router-dom";
 import { onPageLoad, redirect } from './Login';
 
+
 import '../styles/NavBar.css'
+import { fetchUser } from '../features/user/userSlice';
 
 const NavBar = () => {
     return (
@@ -14,7 +16,7 @@ const NavBar = () => {
                     <li>
                         <NavLink to="/">Home</NavLink>
                     </li>
-                    <li>
+                    <li onClick={fetchUser()}>
                         <NavLink to="/profile">Profile</NavLink>
                     </li>
                     <li id="login-btn" onLoad={onPageLoad()} onClick={redirect}>
