@@ -1,6 +1,6 @@
 import React from 'react'
-import Login from './components/Login'
-import Profile from './components/Profile'
+import Home from './components/Home'
+import { UserProfile } from './features/user/UserProfile';
 import NavBar from './components/NavBar'
 import {
   Switch,
@@ -13,19 +13,19 @@ import {onPageLoad} from './components/Login'
 const { REACT_APP_CLIENT_ID, REACT_APP_REDIRECT_URI, REACT_APP_SCOPES} = process.env
 
 export default function App() {
+
   return (
     <div className="App">
       <NavBar/>
       
       <Switch>
         <Route exact path="/">
-          <Login />
+            <Home />
         </Route>
         <Route path="/profile">
-          <Profile/>
+          <UserProfile />
         </Route>
       </Switch>
-
     </div>
   );
 }
