@@ -2,25 +2,26 @@ import React from 'react'
 import {
     NavLink,
 } from "react-router-dom";
-import { onPageLoad, redirect } from './Login';
-
-
 import '../styles/NavBar.css'
-import { fetchUser } from '../features/user/userSlice';
+import { useSelector } from 'react-redux';
+import {  loggedIn } from '../features/user/userSlice';
+import Logout from './Logout';
+import Login from './Login';
 
 const NavBar = () => {
+    const user = useSelector(loggedIn)
     return (
         <div className="navbar">
             <nav className="nav-links">
                 <ul className="nav-route-list">
                     <li>
-                        <NavLink to="/">Home</NavLink>
+                        <NavLink className="nav-route-link" to="/">Home</NavLink>
                     </li>
-                    <li onClick={fetchUser()}>
-                        <NavLink to="/profile">Profile</NavLink>
+                    <li>
+                        <NavLink className="nav-route-link" to="/profile">Profile</NavLink>
                     </li>
-                    <li id="login-btn" onLoad={onPageLoad()} onClick={redirect}>
-                        <NavLink to="/">Login</NavLink>
+                    <li className="auth-btn">
+                        {user ? <Logout /> : <Login />}
                     </li>
                 </ul>
             </nav>
